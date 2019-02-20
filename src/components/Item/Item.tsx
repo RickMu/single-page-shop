@@ -1,5 +1,6 @@
 import { ButtonBase, createStyles, Grid, Paper, Theme, Typography, WithStyles, withStyles, CssBaseline, FormControl, InputLabel, NativeSelect, Input, FormHelperText, Button } from "@material-ui/core";
 import React from "react";
+import ChevronLeft, { ChevronRight } from "@material-ui/icons";
 
 const styles = (theme:Theme) => createStyles({
   root: {
@@ -46,6 +47,9 @@ const styles = (theme:Theme) => createStyles({
     border: "solid",
     borderColor: "#9ecaed",
     boxShadow: "0 0 10px #9ecaed",
+  },
+  icon: {
+    margin: theme.spacing.unit*2
   }
 })
 
@@ -70,7 +74,9 @@ class ItemView extends React.PureComponent<ItemProps> {
                 <Grid item={true} container={true} xs={12} md={2} direction={"column"}>
                   <Grid item={true} className={classes.sidelistContainer}>
                     <ButtonBase className={classes.buttonImage}>
+                      <ChevronLeft></ChevronLeft>
                       <img className={classes.image} src={logo} />
+                      <ChevronRight></ChevronRight>
                     </ButtonBase>
                   </Grid>
                   <Grid item={true} className={classes.sidelistContainer}>
@@ -85,6 +91,7 @@ class ItemView extends React.PureComponent<ItemProps> {
                   </Grid>
                 </Grid>
                 <Grid item={true} xs={12} md={10} container={true} justify="space-around" alignItems="center">
+                
                   <img className={classes.image} src={logo} />
                 </Grid>
               </Grid>
