@@ -19,17 +19,7 @@ const styles = (theme:Theme) => createStyles({
   },
   image: {
     display: "block",
-    maxWidth: "100%",
-  },
-  imageContainer: {
-    backgroundColor: "black",
-    height: "500px",
-    maxHeight: "100%",
-    width: "500px",
-    maxWidth: "100%",
-    [theme.breakpoints.down('sm')]: {
-      height: 'calc(100% - 20px)'
-    },
+    width: "100%"
   },
   inline: {
     display: "inline",
@@ -44,7 +34,19 @@ const styles = (theme:Theme) => createStyles({
   formControl: {
     minWidth: 120,
   },
-  
+  sidelistContainer: {
+    marginBottom: 20,
+    height: 100,
+    [theme.breakpoints.down('sm')]: {
+      heigh: 'calc(100% - 20px)'
+    }
+  },
+  buttonImage: {
+    width: "100%",
+    border: "solid",
+    borderColor: "#9ecaed",
+    boxShadow: "0 0 10px #9ecaed",
+  }
 })
 
 interface ItemProps extends WithStyles<typeof styles>{
@@ -64,12 +66,29 @@ class ItemView extends React.PureComponent<ItemProps> {
         <div>
           <Grid container={true} justify="space-around">
             <Grid spacing={24}  alignItems="flex-start" justify="center" container={true} className={classes.grid}>
-              <Grid xs={12} md={8} item={true}>
-                  <ButtonBase className={classes.imageContainer}>
-                    <img className={classes.image} src={logo} />
-                  </ButtonBase>
+              <Grid xs={12} md={7} item={true} container={true} spacing={8}>
+                <Grid item={true} container={true} xs={12} md={2} direction={"column"}>
+                  <Grid item={true} className={classes.sidelistContainer}>
+                    <ButtonBase className={classes.buttonImage}>
+                      <img className={classes.image} src={logo} />
+                    </ButtonBase>
+                  </Grid>
+                  <Grid item={true} className={classes.sidelistContainer}>
+                    <ButtonBase className={classes.buttonImage}>
+                      <img className={classes.image} src={logo} />
+                    </ButtonBase>
+                  </Grid>
+                  <Grid item={true} className={classes.sidelistContainer}>
+                    <ButtonBase className={classes.buttonImage}>
+                      <img className={classes.image} src={logo} />
+                    </ButtonBase>
+                  </Grid>
+                </Grid>
+                <Grid item={true} xs={12} md={10} container={true} justify="space-around" alignItems="center">
+                  <img className={classes.image} src={logo} />
+                </Grid>
               </Grid>
-              <Grid xs={12} md={4} item={true}>
+              <Grid xs={12} md={5} item={true}>
                 <div className={classes.contentContainer}>
                   <div className={classes.block}>
                     <Typography variant="h3" component="h2">
