@@ -2,6 +2,11 @@ import { ButtonBase, createStyles, Grid, Paper, Theme, Typography, WithStyles, w
 import React from "react";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ImageFrame from "../ImageFrame/ImageFrame";
+import ProductChoiceBox from "../TextComponents/ProductChoicebox";
+import KeyValuePair from "../../common/KeyValuePair";
+import TextLayoutA from "../TextLayout/TextLayoutA";
+import IProductDetails from "../../common/ui/models/ProductDetails";
 
 const styles = (theme:Theme) => createStyles({
   root: {
@@ -68,10 +73,8 @@ const styles = (theme:Theme) => createStyles({
 })
 
 interface ItemProps extends WithStyles<typeof styles>{
-
+  productDetails: IProductDetails
 }
-
-const logo = require('../../logo.svg');
 
 class ItemView extends React.PureComponent<ItemProps> {
 
@@ -85,71 +88,20 @@ class ItemView extends React.PureComponent<ItemProps> {
           <Grid container={true} justify="space-around">
             <Grid spacing={24}  alignItems="flex-start" justify="center" container={true} className={classes.grid}>
               <Grid xs={12} md={7} item={true} container={true} spacing={8}>
-                <Grid item={true} container={true} xs={12} md={2} direction={"column"}>
-                  <Grid item={true} className={classes.sidelistContainer}>
-                    <ButtonBase className={classes.buttonImage}>
-                      <img className={classes.image} src={logo} />
-                    </ButtonBase>
-                  </Grid>
-                  <Grid item={true} className={classes.sidelistContainer}>
-                    <ButtonBase className={classes.buttonImage}>
-                      <img className={classes.image} src={logo} />
-                    </ButtonBase>
-                  </Grid>
-                  <Grid item={true} className={classes.sidelistContainer}>
-                    <ButtonBase className={classes.buttonImage}>
-                      <img className={classes.image} src={logo} />
-                    </ButtonBase>
-                  </Grid>
-                </Grid>
-                <Grid item={true} xs={12} md={10} container={true} justify="space-around" alignItems="center">
-                  <ButtonBase className={classes.arrowLeft}>
-                    <ChevronLeft></ChevronLeft>
-                  </ButtonBase>
-                  <img src={logo} className={classes.inline}/>
-                  <ButtonBase className={classes.arrowLeft}>
-                    <ChevronRight></ChevronRight>
-                  </ButtonBase>
-                </Grid>
+                <ImageFrame images={[{url:"../../logo.svg"}, {url:"../../logo.svg"}]}/> 
               </Grid>
               <Grid xs={12} md={5} item={true}>
                 <div className={classes.contentContainer}>
+                  <TextLayoutA productDetails={this.props.productDetails}/>
                   <div className={classes.block}>
-                    <Typography variant="h3" component="h2">
-                      I'm a Product
-                    </Typography>
-                    <Typography component="p" color={"textPrimary"}>
-                      Lorem Ipsum is simply dummy text
-                    </Typography>
-                  </div>
-                  <div className={classes.block}>
-                    <Typography variant="h6" component="h2">
-                      $ 17.4 USD
-                    </Typography>
-                  </div>
-                  <div className={classes.block}>
-                    <Typography component="p">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </Typography>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="age-native-helper">Age</InputLabel>
-                      <NativeSelect
-                        input={<Input name="age" id="age-native-helper" />}
-                      >
-                        <option value="" />
-                        <option value={10}>Ten</option>
-                        <option value={20}>Twenty</option>
-                        <option value={30}>Thirty</option>
-                      </NativeSelect>
-                      <FormHelperText>Some important helper text</FormHelperText>
-                  </FormControl>
-                  </div>
+                    <ProductChoiceBox choiceName="color" choices={["blue", "green", "red"]} callback={this.onValueSelected} boxStyle={{width: 100}}/>
+                    <ProductChoiceBox choiceName="color" choices={["blue", "green", "red"]} callback={this.onValueSelected} boxStyle={{width: 100}}/>
+                  </div> 
                   <div className={classes.block}>
                     <Button size="large" variant="contained" color="secondary">
                       Claim Coupon
                     </Button>
                   </div>
-
                 </div>
               </Grid>
             </Grid>
@@ -157,6 +109,10 @@ class ItemView extends React.PureComponent<ItemProps> {
         </div>
       </React.Fragment>
     )
+  }
+
+  private onValueSelected = (pair: KeyValuePair<string,string>) => {
+    console.log(pair);
   }
 }
 
