@@ -1,6 +1,7 @@
 import { ButtonBase, createStyles, Grid, Paper, Theme, Typography, WithStyles, withStyles, CssBaseline, FormControl, InputLabel, NativeSelect, Input, FormHelperText, Button } from "@material-ui/core";
 import React from "react";
-import { ChevronRight, ChevronLeft } from "@material-ui/icons";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
 
 const styles = (theme:Theme) => createStyles({
   root: {
@@ -15,7 +16,8 @@ const styles = (theme:Theme) => createStyles({
     width: 1200,
     marginTop: 100,
     [theme.breakpoints.down('sm')]: {
-      width: 'calc(100% - 20px)'
+      width: 'calc(100% - 20px)',
+      marginTop: 10
     },
   },
   image: {
@@ -24,6 +26,8 @@ const styles = (theme:Theme) => createStyles({
   },
   inline: {
     display: "inline",
+    width: "90%",
+    height:"100%"
   },
   contentContainer: {
     width:"100%",
@@ -39,7 +43,7 @@ const styles = (theme:Theme) => createStyles({
     marginBottom: 20,
     height: 100,
     [theme.breakpoints.down('sm')]: {
-      heigh: 'calc(100% - 20px)'
+      display: "none"
     }
   },
   buttonImage: {
@@ -51,6 +55,16 @@ const styles = (theme:Theme) => createStyles({
   icon: {
     margin: theme.spacing.unit*2
   },
+  arrowLeft: {
+    display: "inline-block",
+    height: '100%',
+    width:"5%"
+  },
+  arrowRight: {
+    display: "inline-block",
+    height: "100%",
+    width:"5%"
+  }
 })
 
 interface ItemProps extends WithStyles<typeof styles>{
@@ -89,15 +103,13 @@ class ItemView extends React.PureComponent<ItemProps> {
                   </Grid>
                 </Grid>
                 <Grid item={true} xs={12} md={10} container={true} justify="space-around" alignItems="center">
-                  <div className={classes.inline}>
+                  <ButtonBase className={classes.arrowLeft}>
                     <ChevronLeft></ChevronLeft>
-                  </div>
-                  <div className={classes.inline}>
-                    <img className={classes.image} src={logo} />
-                  </div>
-                  <div className={classes.inline}>
+                  </ButtonBase>
+                  <img src={logo} className={classes.inline}/>
+                  <ButtonBase className={classes.arrowLeft}>
                     <ChevronRight></ChevronRight>
-                  </div>  
+                  </ButtonBase>
                 </Grid>
               </Grid>
               <Grid xs={12} md={5} item={true}>
