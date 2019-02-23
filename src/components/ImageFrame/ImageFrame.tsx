@@ -3,13 +3,15 @@ import { Grid, ButtonBase, Theme, createStyles, withStyles, WithStyles } from "@
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import Image from "../../common/ui/models/Image";
+import { constructLinkedList, constructLinkedListArray } from "../../common/utils/linkedlist";
+import LinkedNode from "../../common/LinkedNode";
 
 interface IFrameState {
-  selectedImage: number;
+  selectedImage: LinkedNode<Image>;
 }
 
 interface IFrameProps extends WithStyles<typeof styles> {
-  images: Image[];
+  linkedImages: Array<LinkedNode<Image>>;
 }
 
 class ImageFrame extends React.Component<IFrameProps, IFrameState> {
@@ -17,56 +19,69 @@ class ImageFrame extends React.Component<IFrameProps, IFrameState> {
   constructor(props: IFrameProps) {
     super(props);
     this.state = {
-      selectedImage: 1
-    }
+      selectedImage: props.linkedImages[0]
+    };
   }
 
   public render(): React.ReactNode {
-    const {classes, images} = this.props;
-    const displayImage = images[this.state.selectedImage];
-    const sideImages = images.filter((value: Image, index: number) => index != this.state.selectedImage);
+    const {classes, linkedImages} = this.props;
 
     return (
       <React.Fragment>
         <Grid item={true} container={true} xs={12} md={2} direction={"column"}>
-          {this.renderSideImages(sideImages)}
+          {this.renderSideImages(linkedImages)}
         </Grid>
         <Grid item={true} xs={12} md={10} container={true} justify="space-around" alignItems="center">
-          <ButtonBase className={classes.arrowLeft}>
+          <ButtonBase className={classes.arrowLeft} onClick={ () => this.handleArrowClick(false)}>
             <ChevronLeft/>
           </ButtonBase>
-            <img src={require("../../logo.svg")} className={classes.displayImage}/>
-          <ButtonBase className={classes.arrowLeft}>
+            <img src={require(`../../images/clothes${this.state.selectedImage.item.url}.jpg`)}
+            className={classes.displayImage}/>
+          <ButtonBase className={classes.arrowLeft} onClick={ () => this.handleArrowClick(true) }>
             <ChevronRight/>
           </ButtonBase>
         </Grid>
       </React.Fragment>
-    )
+    );
   }
 
-  private renderSideImages(images: Image[]) {
-    return images.map((value:Image, key:number) => {
+  private handleArrowClick(right: boolean) {
+    let next;
+
+    if (right) {
+      next = this.state.selectedImage.next;
+    } else {
+      next = this.state.selectedImage.prev;
+    }
+    if (next) {
+      this.setState({selectedImage: next});
+    }
+  }
+
+  private handleOnClick = (image: LinkedNode<Image>) => {
+    this.setState({selectedImage: image});
+  }
+
+  private renderSideImages(images: Array<LinkedNode<Image>>) {
+    return images.map((value: LinkedNode<Image>, key: number) => {
 
       const { classes } = this.props;
-      const image = require("../../logo.svg");
 
       return (
         <Grid item={true} className={classes.sideImageGrid} key={key}>
-          <ButtonBase className={classes.sideImageButton}>
-            <img className={classes.sideImage} src={image} />
+          <ButtonBase className={classes.sideImageButton} onClick={() => this.handleOnClick(value)}>
+            <img className={classes.sideImage} src={require(`../../images/clothes${value.item.url}.jpg`)} />
           </ButtonBase>
         </Grid>
-      )
-    })
+      );
+    });
   }
 }
-
 
 const styles = (theme: Theme) => createStyles({
   sideImageGrid: {
     marginBottom: 20,
-    height: 100,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       display: "none"
     }
   },
@@ -74,7 +89,7 @@ const styles = (theme: Theme) => createStyles({
     width: "100%",
     border: "solid",
     borderColor: "#9ecaed",
-    boxShadow: "0 0 10px #9ecaed",
+    boxShadow: "0 0 10px #9ecaed"
   },
   sideImage: {
     display: "block",
@@ -82,16 +97,16 @@ const styles = (theme: Theme) => createStyles({
   },
   arrowLeft: {
     display: "inline-block",
-    width:"5%"
+    width: "5%"
   },
   arrowRight: {
     display: "inline-block",
-    width:"5%"
+    width: "5%"
   },
   displayImage: {
     display: "inline",
     height: "100%",
-    width:"90%"
+    width: "90%"
   }
 });
 

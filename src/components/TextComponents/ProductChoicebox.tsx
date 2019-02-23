@@ -1,27 +1,28 @@
 import React from "react";
-import { FormControl, InputLabel, NativeSelect, FormHelperText, Input, WithStyles, Select, MenuItem } from "@material-ui/core";
+import { FormControl, InputLabel,
+NativeSelect, FormHelperText, Input, WithStyles, Select, MenuItem } from "@material-ui/core";
 import KeyValuePair from "../../common/KeyValuePair";
+import IProductChoice from "../../common/ui/models/ProductChoices";
 
-export type choiceCallBack = (select: KeyValuePair<string,string>) => void;
+export type choiceCallBack = (select: KeyValuePair<string, string>) => void;
 
 interface IChoiceBoxProps {
-  choiceName: string;
-  choices: string[];
+  productChoice: IProductChoice;
   callback: choiceCallBack;
-  boxStyle: any;
 }
 
 class ProductChoiceBox extends React.PureComponent<IChoiceBoxProps> {
 
   public render() {
-    const { choices, boxStyle, choiceName } = this.props;
+    const { productChoice} = this.props;
     return (
-      <FormControl className={boxStyle} >
-        <InputLabel htmlFor="age-native-helper">{choiceName}</InputLabel>
-        <Select onChange={this.handleChange} input={<Input name={choiceName} />}>
-          {choices.map((value: string, index: number) => <MenuItem value={value} key={index}>{value}</MenuItem>)}
+      <FormControl style={{width: 100, maxWidth: 300}}>
+        <InputLabel htmlFor="age-native-helper">{productChoice.name}</InputLabel>
+        <Select onChange={this.handleChange} input={<Input name={productChoice.name}/>}>
+          {productChoice.choices.map((value: string, index: number) =>
+          <MenuItem value={value} key={index}>{value}</MenuItem>)}
         </Select>
-        <FormHelperText>Some important helper text</FormHelperText>
+        <FormHelperText>{productChoice.description}</FormHelperText>
       </FormControl>
     );
   }

@@ -2,15 +2,15 @@ import React from "react";
 import { Typography, createStyles, Theme, withStyles, Button, WithStyles } from "@material-ui/core";
 import IProductDetails from "../../common/ui/models/ProductDetails";
 
-const styles = (theme:Theme) => createStyles({
+const styles = (theme: Theme) => createStyles({
   contentContainer: {
-    width:"100%",
-    textAlign: "left",
+    width: "100%",
+    textAlign: "left"
   },
   block: {
-    padding: theme.spacing.unit * 2,
-  },
-})
+    padding: theme.spacing.unit * 2
+  }
+});
 
 
 interface ITextLayoutAProps extends WithStyles<typeof styles> {
@@ -43,7 +43,7 @@ class TextLayoutA extends React.PureComponent<ITextLayoutAProps> {
           </Typography>
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
