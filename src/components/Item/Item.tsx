@@ -8,13 +8,15 @@ import React from "react";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ImageFrame from "../ImageFrame/ImageFrame";
-import ProductChoiceBox from "../TextComponents/ProductChoicebox";
+import ProductChoiceBox from "../ChoiceComponents/ProductChoiceSelection";
 import KeyValuePair from "../../common/KeyValuePair";
 import TextLayoutA from "../TextLayout/TextLayoutA";
 import IProductDetails from "../../common/ui/models/ProductDetails";
 import { constructLinkedListArray } from "../../common/utils/linkedlist";
 import Image from "../../common/ui/models/Image";
 import IProductChoice from "../../common/ui/models/ProductChoices";
+import CountAdjustBox from "../ChoiceComponents/ProductCountSelection";
+import IDictionary from "../../common/Dictionary";
 
 const styles = (theme: Theme) => createStyles({
   grid: {
@@ -29,9 +31,10 @@ const styles = (theme: Theme) => createStyles({
     display: "inline",
     margin: theme.spacing.unit * 1
   },
-  contentGrid: {
+  contentBlock: {
     width: "100%",
-    textAlign: "left"
+    textAlign: "left",
+    paddingLeft: 100
   },
   block: {
     padding: theme.spacing.unit * 2
@@ -48,7 +51,27 @@ interface ItemProps extends WithStyles<typeof styles> {
   images: Image[];
 }
 
+interface ItemState {
+  attributes: IDictionary<string>
+}
+
 class ItemView extends React.PureComponent<ItemProps> {
+
+  constructor(props: ItemProps) {
+    super(props);
+
+    const partialState = props.productChoices.reduce((prevValue, currentValue: IProductChoice) => {
+      return {
+        ...prevValue,
+        [currentValue.name]: ""
+      }
+    }, {})
+
+    this.state = {
+      ...partialState,
+      "itemCount": "0"
+    }
+  }
 
   public render() {
     const { classes, images, productChoices, productDetails } = this.props;
@@ -58,19 +81,22 @@ class ItemView extends React.PureComponent<ItemProps> {
         <CssBaseline/>
         <div>
           <Grid container={true} justify="space-around">
-            <Grid spacing={24}  alignItems="flex-start" justify="center" container={true} className={classes.grid}>
-              <Grid xs={12} md={7} item={true} container={true} spacing={8}>
+            <Grid spacing={40}  alignItems="flex-start" justify="space-evenly" container={true} className={classes.grid}>
+              <Grid xs={12} md={6} item={true} container={true} spacing={8}>
                 <ImageFrame linkedImages={this.getImages(images)}/>
               </Grid>
-              <Grid xs={12} md={5} item={true} className={classes.contentGrid}>
-                <TextLayoutA productDetails={productDetails}/>
-                <div className={classes.block}>
-                  {this.renderProductChoices(productChoices, classes)}
-                </div>
-                <div className={classes.block}>
-                  <Button variant="outlined" color="secondary" className={classes.purchaseButton}>
-                    Claim Coupon
-                  </Button>
+              <Grid xs={12} md={6} item={true}>
+                <div className={classes.contentBlock}>
+                  <TextLayoutA productDetails={productDetails}/>
+                  <div className={classes.block}>
+                    {this.renderProductChoices(productChoices, classes)}
+                    <CountAdjustBox name="itemCount" label="items" currentValue={this.state["itemCount"]} callback={this.onValueSelected}/>
+                  </div>
+                  <div className={classes.block}>
+                    <Button variant="outlined" color="secondary" className={classes.purchaseButton}>
+                      {this.state["itemCount"] === "0" ? "Add To Cart" : `Total Items: ${this.state["itemCount"]}` }
+                    </Button>
+                  </div>
                 </div>
               </Grid>
             </Grid>
@@ -95,7 +121,9 @@ class ItemView extends React.PureComponent<ItemProps> {
   }
 
   private onValueSelected = (pair: KeyValuePair<string, string>) => {
-    console.log(pair);
+    this.setState({
+      [pair.key]: pair.value
+    })
   }
 }
 

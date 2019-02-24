@@ -1,14 +1,11 @@
 import React from "react";
 import { FormControl, InputLabel,
 NativeSelect, FormHelperText, Input, WithStyles, Select, MenuItem } from "@material-ui/core";
-import KeyValuePair from "../../common/KeyValuePair";
 import IProductChoice from "../../common/ui/models/ProductChoices";
+import { IChoice } from "./models";
 
-export type choiceCallBack = (select: KeyValuePair<string, string>) => void;
-
-interface IChoiceBoxProps {
+interface IChoiceBoxProps extends IChoice {
   productChoice: IProductChoice;
-  callback: choiceCallBack;
 }
 
 class ProductChoiceBox extends React.PureComponent<IChoiceBoxProps> {
