@@ -1,6 +1,6 @@
 import React from "react";
 import { FormControl, InputLabel,
-NativeSelect, FormHelperText, Input, WithStyles, Select, MenuItem } from "@material-ui/core";
+NativeSelect, FormHelperText, Input, Select, MenuItem } from "@material-ui/core";
 import IProductChoice from "../../common/ui/models/ProductChoices";
 import { IChoice } from "./models";
 

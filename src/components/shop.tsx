@@ -1,7 +1,7 @@
 import { createStyles, Theme, WithStyles, withStyles } from "@material-ui/core";
 import React from "react";
-import ItemView from "./Item/Item";
-import Topbar from "./Appbar/Topbar";
+import ItemView from "./ItemPage/Item";
+import Topbar from "./CommonComponents/Appbar/Topbar";
 
 const styles = (theme: Theme) => createStyles({
   grid: {

@@ -7,16 +7,16 @@ import { ButtonBase,
 import React from "react";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
-import ImageFrame from "../ImageFrame/ImageFrame";
-import ProductChoiceBox from "../ChoiceComponents/ProductChoiceSelection";
-import KeyValuePair from "../../common/KeyValuePair";
-import TextLayoutA from "../TextLayout/TextLayoutA";
+import ImageFrame from "./ImageFrame/ImageFrame";
+import ProductChoiceBox from "./ChoiceComponents/ProductChoiceSelection";
+import KeyValuePair from "../../common/extensions/KeyValuePair";
+import TextLayoutA from "./TextLayout/TextLayoutA";
 import IProductDetails from "../../common/ui/models/ProductDetails";
-import { constructLinkedListArray } from "../../common/utils/linkedlist";
+import { constructLinkedListArray } from "../../common/extensions/utils/linkedlist";
 import Image from "../../common/ui/models/Image";
 import IProductChoice from "../../common/ui/models/ProductChoices";
-import CountAdjustBox from "../ChoiceComponents/ProductCountSelection";
-import IDictionary from "../../common/Dictionary";
+import CountAdjustBox from "./ChoiceComponents/ProductCountSelection";
+import IDictionary from "../../common/extensions/Dictionary";
 
 const styles = (theme: Theme) => createStyles({
   grid: {
