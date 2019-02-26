@@ -2,9 +2,8 @@ import React from "react";
 import { Grid, ButtonBase, Theme, createStyles, withStyles, WithStyles } from "@material-ui/core";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
-import Image from "../../common/ui/models/Image";
-import LinkedNode from "../../common/LinkedNode";
-
+import Image from "../../../common/ui/models/Image";
+import LinkedNode from "../../../common/extensions/LinkedNode";
 
 interface IFrameState {
   selectedImage: LinkedNode<Image>;
@@ -35,7 +34,7 @@ class ImageFrame extends React.Component<IFrameProps, IFrameState> {
           <ButtonBase className={classes.arrowLeft} onClick={ () => this.handleArrowClick(false)}>
             <ChevronLeft/>
           </ButtonBase>
-            <img src={require(`../../images/clothes${this.state.selectedImage.item.url}.jpg`)}
+            <img src={require(`../../../images/clothes${this.state.selectedImage.item.url}.jpg`)}
             className={classes.displayImage}/>
           <ButtonBase className={classes.arrowLeft} onClick={ () => this.handleArrowClick(true) }>
             <ChevronRight/>
@@ -70,7 +69,7 @@ class ImageFrame extends React.Component<IFrameProps, IFrameState> {
       return (
         <Grid item={true} className={classes.sideImageGrid} key={key}>
           <ButtonBase className={classes.sideImageButton} onClick={() => this.handleOnClick(value)}>
-            <img className={classes.sideImage} src={require(`../../images/clothes${value.item.url}.jpg`)} />
+            <img className={classes.sideImage} src={require(`../../../images/clothes${value.item.url}.jpg`)} />
           </ButtonBase>
         </Grid>
       );

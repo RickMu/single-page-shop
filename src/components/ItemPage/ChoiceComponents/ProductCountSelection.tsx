@@ -22,16 +22,17 @@ interface ICountAdjustBoxProps extends WithStyles<typeof styles>, IChoice {
   name: string;
   label: string;
   currentValue: string;
+  range: [number, number];
 }
 
 class CountAdjustBox extends React.PureComponent<ICountAdjustBoxProps> {
 
   public render() {
-    const { classes, currentValue, name} = this.props;
+    const { classes, currentValue, name, range} = this.props;
 
     return (
       <div className={classes.container}>
-        <ButtonBase className={classes.buttonContainer} onClick={() => this.handleIncrementClicks(-1, currentValue, name)}>
+        <ButtonBase className={classes.buttonContainer} onClick={() => this.handleIncrementClicks(-1, currentValue, name, range)}>
           <Remove/>
         </ButtonBase>
         <TextField
@@ -46,19 +47,24 @@ class CountAdjustBox extends React.PureComponent<ICountAdjustBoxProps> {
           }}
           className={classes.textField}
           />
-        <ButtonBase className={classes.buttonContainer} onClick={() => this.handleIncrementClicks(1, currentValue, name)}>
+        <ButtonBase className={classes.buttonContainer} onClick={() => this.handleIncrementClicks(1, currentValue, name, range)}>
           <Add/>
         </ButtonBase>
       </div>
     )
   }
 
-  private handleIncrementClicks = (increment: number, currentValue: string, name: string) => {
+  private handleIncrementClicks = (increment: number, currentValue: string, name: string, range: [number, number]) => {
     const newVal = parseInt(currentValue) + increment;
-    this.props.callback({
-      key: name,
-      value: newVal.toString()
-    })
+    
+    if(newVal >= range[0] && newVal <= range[1]) { 
+      this.props.callback({
+        key: name,
+        value: newVal.toString()
+      })
+    } else {
+      return;
+    }
   }
 
   private handleCallback = (event: any) => {

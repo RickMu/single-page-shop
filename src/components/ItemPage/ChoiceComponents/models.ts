@@ -1,4 +1,5 @@
-import KeyValuePair from "../../common/KeyValuePair";
+import KeyValuePair from "../../../common/extensions/KeyValuePair";
+
 
 export type choiceCallBack = (select: KeyValuePair<string, string>) => void;
 

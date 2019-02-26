@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, createStyles, Theme, withStyles, Button, WithStyles } from "@material-ui/core";
-import IProductDetails from "../../common/ui/models/ProductDetails";
+import IProductDetails from "../../../common/ui/models/ProductDetails";
 
 const styles = (theme: Theme) => createStyles({
   contentContainer: {
