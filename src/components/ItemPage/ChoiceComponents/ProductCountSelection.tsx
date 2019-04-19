@@ -2,7 +2,7 @@ import React from "react";
 import { createStyles, Theme, WithStyles, InputLabel, TextField, withStyles, ButtonBase } from "@material-ui/core";
 import Add from "@material-ui/icons/Add";
 import Remove from "@material-ui/icons/Remove";
-import { IChoice } from "./models";
+import { IInputCallback } from "./models";
 
 const styles = (theme: Theme) => createStyles({
   textField: {
@@ -18,7 +18,7 @@ const styles = (theme: Theme) => createStyles({
   }
 });
 
-interface ICountAdjustBoxProps extends WithStyles<typeof styles>, IChoice {
+interface ICountAdjustBoxProps extends WithStyles<typeof styles>, IInputCallback {
   name: string;
   label: string;
   currentValue: string;

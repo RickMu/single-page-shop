@@ -1,10 +1,10 @@
 import React from "react";
 import { FormControl, InputLabel,
 NativeSelect, FormHelperText, Input, Select, MenuItem } from "@material-ui/core";
-import { IChoice } from "./models";
+import { IInputCallback } from "./models";
 import {IProductTypeChoices} from "../../../common/ui/models/ProductChoice";
 
-interface IChoiceBoxProps extends IChoice {
+interface IChoiceBoxProps extends IInputCallback {
   productChoice: IProductTypeChoices;
   currentValue: string;
 }
